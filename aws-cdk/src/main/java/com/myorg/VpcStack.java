@@ -8,6 +8,9 @@ import software.constructs.Construct;
 // import software.amazon.awscdk.services.sqs.Queue;
 
 public class VpcStack extends Stack {
+
+    private Vpc vpc;
+
     public VpcStack(final Construct scope, final String id) {
         this(scope, id, null);
     }
@@ -15,8 +18,13 @@ public class VpcStack extends Stack {
     public VpcStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
 
-        Vpc.Builder.create(this, "Vpc01")
+        vpc = Vpc.Builder.create(this, "Vpc01")
                 .maxAzs(3)
+                .natGateways(0)
                 .build();
+    }
+
+    public Vpc getVpc() {
+        return vpc;
     }
 }
