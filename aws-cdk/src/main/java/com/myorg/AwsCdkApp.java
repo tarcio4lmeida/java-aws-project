@@ -3,16 +3,23 @@ package com.myorg;
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.ec2.Vpc;
+import software.amazon.awscdk.services.ecs.Cluster;
 
 public class AwsCdkApp {
     public static void main(final String[] args) {
         App app = new App();
 
         VpcStack vpcStack = new VpcStack(app, "Vpc");
-        Vpc vpc = vpcStack.getVpc();
 
-        ClusterStack clusterStack = new ClusterStack(app, "Cluster", vpc);
+        ClusterStack clusterStack = new ClusterStack(app, "Cluster", vpcStack.getVpc());
         clusterStack.addDependency(vpcStack);
+
+        RdsStack rdsStack = new RdsStack(app, "Rds", vpcStack.getVpc());
+        rdsStack.addDependency(vpcStack);
+
+        Service01Stack service01Stack = new Service01Stack(app, "Service01",  clusterStack.getCluster());
+        service01Stack.addDependency(clusterStack);
+        service01Stack.addDependency(rdsStack);
 
         app.synth();
     }

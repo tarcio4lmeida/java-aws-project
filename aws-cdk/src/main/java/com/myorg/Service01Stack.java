@@ -1,9 +1,7 @@
 package com.myorg;
 
-import software.amazon.awscdk.Duration;
-import software.amazon.awscdk.RemovalPolicy;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
+import com.myorg.util.ConstantUtil;
+import software.amazon.awscdk.*;
 import software.amazon.awscdk.services.applicationautoscaling.EnableScalingProps;
 import software.amazon.awscdk.services.ecs.*;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedFargateService;
@@ -11,6 +9,9 @@ import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskI
 import software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck;
 import software.amazon.awscdk.services.logs.LogGroup;
 import software.constructs.Construct;
+
+import java.util.HashMap;
+import java.util.Map;
 // import software.amazon.awscdk.Duration;
 // import software.amazon.awscdk.services.sqs.Queue;
 
@@ -21,6 +22,14 @@ public class Service01Stack extends Stack {
 
     public Service01Stack(final Construct scope, final String id, final StackProps props, Cluster cluster) {
         super(scope, id, props);
+
+        Map<String, String> envVariables = new HashMap<>();
+        envVariables.put("SPRING_DATASOURCE_URL", "jdbc:mariadb://" + Fn.importValue(ConstantUtil.RDS_ENDPOINT)
+                + ":3306/aws_project01?createDatabaseIfNotExist=true");
+        envVariables.put("SPRING_DATASOURCE_USERNAME", ConstantUtil.RDS_USERNAME);
+        envVariables.put("SPRING_DATASOURCE_PASSWORD", Fn.importValue(ConstantUtil.RDS_PASSWORD));
+
+
 
         ApplicationLoadBalancedFargateService service01 =
                 ApplicationLoadBalancedFargateService.Builder.create(this, "ALB01")
@@ -34,7 +43,7 @@ public class Service01Stack extends Stack {
                         .taskImageOptions(
                                 ApplicationLoadBalancedTaskImageOptions.builder()
                                         .containerName("aws_project01")
-                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.0.0"))
+                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.0.2"))
                                         .containerPort(8080)
                                         .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                                 .logGroup(LogGroup.Builder.create(this, "Service01LogGroup")
@@ -43,6 +52,7 @@ public class Service01Stack extends Stack {
                                                         .build())
                                                 .streamPrefix("Service01")
                                                 .build()))
+                                        .environment(envVariables)
                                         .build())
                         .publicLoadBalancer(true)
                         .build();
