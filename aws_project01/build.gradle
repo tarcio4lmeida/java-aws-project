@@ -29,7 +29,7 @@ sourceCompatibility = '17'
 
 bootJar {
 	baseName = 'curso_aws_project01'
-	version = '1.0.2'
+	version = '1.0.3'
 }
 
 task unpack(type: Copy){
@@ -52,7 +52,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 
 tasks.named('test') {

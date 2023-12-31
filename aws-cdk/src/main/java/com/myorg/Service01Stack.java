@@ -29,8 +29,6 @@ public class Service01Stack extends Stack {
         envVariables.put("SPRING_DATASOURCE_USERNAME", ConstantUtil.RDS_USERNAME);
         envVariables.put("SPRING_DATASOURCE_PASSWORD", Fn.importValue(ConstantUtil.RDS_PASSWORD));
 
-
-
         ApplicationLoadBalancedFargateService service01 =
                 ApplicationLoadBalancedFargateService.Builder.create(this, "ALB01")
                         .serviceName("service-01")
@@ -43,7 +41,7 @@ public class Service01Stack extends Stack {
                         .taskImageOptions(
                                 ApplicationLoadBalancedTaskImageOptions.builder()
                                         .containerName("aws_project01")
-                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.0.2"))
+                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.0.3"))
                                         .containerPort(8080)
                                         .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                                 .logGroup(LogGroup.Builder.create(this, "Service01LogGroup")

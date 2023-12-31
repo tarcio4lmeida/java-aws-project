@@ -44,16 +44,16 @@ public class RdsStack extends Stack {
                         .build()))
                 .vpc(vpc)
 
-                .credentials(Credentials.fromUsername("admin",
+                .credentials(Credentials.fromUsername(ConstantUtil.RDS_USERNAME,
                     CredentialsFromUsernameOptions.builder()
-                        .password(SecretValue.plainText(databasePassword.getValueAsString()))
+                        .password(SecretValue.unsafePlainText(databasePassword.getValueAsString()))
                         .build()))
                 .instanceType(InstanceType.of(InstanceClass.BURSTABLE2, InstanceSize.MICRO))
                 .multiAz(Boolean.FALSE)
                 .allocatedStorage(10)
                 .securityGroups(Collections.singletonList(iSecurityGroup))
                 .vpcSubnets(SubnetSelection.builder()
-                        .subnets(vpc.getPrivateSubnets())
+                        .subnets(vpc.getPublicSubnets())
                         .build())
                 .build();
 
