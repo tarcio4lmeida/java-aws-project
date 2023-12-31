@@ -1,12 +1,13 @@
 package br.com.siecola.aws_project01.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.Data;
 
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"code"})
+        }
+)
 @Entity
 @Data
 public class Product {
