@@ -37,9 +37,7 @@ public class ProductController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product,
                                                  @PathVariable("id") long id) {
-
         Optional<Product> optProduct = productRepository.findById(id);
-
         return optProduct.map(prod -> {
             Product productUpdated = productRepository.save(product);
             return new ResponseEntity<Product>(productUpdated, HttpStatus.OK);
@@ -51,13 +49,11 @@ public class ProductController {
     public ResponseEntity<Product> deleteProduct(@RequestBody Product product,
                                                  @PathVariable("id") Long id) {
         Optional<Product> optProduct = productRepository.findById(id);
-        if (optProduct.isPresent()) {
-            Product productDeleted = optProduct.get();
-            productRepository.delete(productDeleted);
-            return new ResponseEntity<Product>(productDeleted, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-        }
+        return optProduct.map(prod -> {
+            productRepository.delete(prod);
+            return new ResponseEntity<Product>(prod, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<Product>(HttpStatus.NOT_FOUND));
+
     }
 
     @GetMapping(path = "/bycode")
