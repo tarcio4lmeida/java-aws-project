@@ -1,7 +1,6 @@
 package br.com.siecola.aws_project01.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Table(
         uniqueConstraints = {
@@ -9,7 +8,6 @@ import lombok.Data;
         }
 )
 @Entity
-@Data
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,4 +21,46 @@ public class Product {
 
     @Column(length = 8, nullable = false)
     private String code;
+
+    public Product() {
+    }
+
+    public Product(String name, String model, String code) {
+        this.name = name;
+        this.model = model;
+        this.code = code;
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }
+

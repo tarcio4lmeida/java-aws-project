@@ -2,7 +2,6 @@ package br.com.siecola.aws_project01.controller;
 
 import br.com.siecola.aws_project01.model.Product;
 import br.com.siecola.aws_project01.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +11,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
-@RequiredArgsConstructor
 public class ProductController {
-    private ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
+
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @GetMapping
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public  ResponseEntity<List<Product>> findAll() {
+        List<Product> products = productRepository.findAll();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -40,25 +44,26 @@ public class ProductController {
         Optional<Product> optProduct = productRepository.findById(id);
         return optProduct.map(prod -> {
             Product productUpdated = productRepository.save(product);
-            return new ResponseEntity<Product>(productUpdated, HttpStatus.OK);
+            return new ResponseEntity<>(productUpdated, HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Product> deleteProduct(@RequestBody Product product,
                                                  @PathVariable("id") Long id) {
         Optional<Product> optProduct = productRepository.findById(id);
         return optProduct.map(prod -> {
             productRepository.delete(prod);
-            return new ResponseEntity<Product>(prod, HttpStatus.OK);
-        }).orElseGet(() -> new ResponseEntity<Product>(HttpStatus.NOT_FOUND));
+            return new ResponseEntity<>(prod, HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
     }
 
     @GetMapping(path = "/bycode")
     public ResponseEntity<Product> findByCode(@RequestParam String code) {
         Optional<Product> optProduct = productRepository.findByCode(code);
-        return optProduct.map(product -> new ResponseEntity<>(product, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return optProduct.map(product -> new ResponseEntity<>(product, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
