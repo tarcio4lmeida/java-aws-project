@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductEvent {
-    private Long id;
+    private long id;
     private String code;
     private String username;
 }

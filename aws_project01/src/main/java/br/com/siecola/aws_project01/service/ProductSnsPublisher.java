@@ -29,7 +29,7 @@ public class ProductSnsPublisher {
     public void publishProductEvent(Product product, EventType eventType, String userName) {
         try {
             ProductEvent productEvent = ProductEvent.builder()
-                    .productId(product.getId())
+                    .id(product.getId())
                     .code(product.getCode())
                     .userName(userName)
                     .build();

@@ -5,6 +5,7 @@ import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import jakarta.jms.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
@@ -14,6 +15,7 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 
 @Configuration
 @EnableJms
+@Profile("!local")
 public class JmsConfig {
     private SQSConnectionFactory sqsConnectionFactory;
 

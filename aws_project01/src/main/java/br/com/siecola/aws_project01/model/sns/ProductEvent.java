@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class ProductEvent {
-    private long productId;
+    private long id;
     private  String code;
     private String userName;
 }

@@ -29,5 +29,9 @@ public class Product {
     private String code;
 
     private float price;
+
+    public long getId() {
+        return Id;
+    }
 }
 

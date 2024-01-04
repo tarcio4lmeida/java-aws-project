@@ -32,11 +32,16 @@ dependencies {
 	implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
 	implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
 	implementation 'com.amazonaws:aws-java-sdk-sns'
+	implementation 'com.amazonaws:aws-java-sdk-sqs'
+
 	//sns
 	implementation group: 'com.amazonaws', name: 'aws-java-sdk-sns', version: '1.12.629'
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.12.629'
 	//lombok
 	compileOnly 'org.projectlombok:lombok:1.18.26'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+
 }
 
 tasks.register('unpack', Copy) {

@@ -46,12 +46,13 @@ public class Service02Stack extends Stack {
                 .deadLetterQueue(deadLetterQueue)
                 .build();
 
+        //inscricao da fila dentro do topico SNS
         SqsSubscription sqsSubscription = SqsSubscription.Builder.create(productEventsQueue).build();
         productEventsTopic.getTopic().addSubscription(sqsSubscription);
 
         Map<String, String> envVariables = new HashMap<>();
         envVariables.put("AWS_SQS_QUEUE_PRODUCT_EVENTS_NAME", productEventsQueue.getQueueName());
-        envVariables.put("AWS_REGION", "us-east-1");
+        envVariables.put("AWS_REGION", "sa-east-1");
 
         ApplicationLoadBalancedFargateService service02 = ApplicationLoadBalancedFargateService.Builder.create(this, "ALB02")
                 .serviceName("service-02")
@@ -63,7 +64,7 @@ public class Service02Stack extends Stack {
                 .taskImageOptions(
                         ApplicationLoadBalancedTaskImageOptions.builder()
                                 .containerName("aws_project02")
-                                .image(ContainerImage.fromRegistry("talima94/curso_aws_project02:0.0.2"))
+                                .image(ContainerImage.fromRegistry("talima94/curso_aws_project02:0.0.3"))
                                 .containerPort(9090)
                                 .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                         .logGroup(LogGroup.Builder.create(this, "Service02LogGroup")
@@ -84,8 +85,8 @@ public class Service02Stack extends Stack {
                 .build());
 
         ScalableTaskCount scalableTaskCount = service02.getService().autoScaleTaskCount(EnableScalingProps.builder()
-                .minCapacity(1)
-                .maxCapacity(2)
+                .minCapacity(2)
+                .maxCapacity(4)
                 .build());
 
         scalableTaskCount.scaleOnCpuUtilization("Service02AutoScaling", CpuUtilizationScalingProps.builder()
