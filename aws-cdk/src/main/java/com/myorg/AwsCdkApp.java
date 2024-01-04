@@ -23,6 +23,9 @@ public class AwsCdkApp {
         SnsStack snsStack = new SnsStack(app, "Sns", StackProps.builder()
                 .env(envAmericaSul).build());
 
+        Service02Stack service02Stack = new Service02Stack(app, "Service02",  StackProps.builder()
+                .env(envAmericaSul).build(), clusterStack.getCluster());
+
         Service01Stack service01Stack = new Service01Stack(app, "Service01",  StackProps.builder()
                 .env(envAmericaSul).build(), clusterStack.getCluster(), snsStack.getProductEventsTopic());
         service01Stack.addDependency(clusterStack);
