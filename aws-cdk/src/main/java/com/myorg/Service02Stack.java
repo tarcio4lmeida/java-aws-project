@@ -3,6 +3,7 @@ package com.myorg;
 import com.myorg.util.ConstantUtil;
 import software.amazon.awscdk.*;
 import software.amazon.awscdk.services.applicationautoscaling.EnableScalingProps;
+import software.amazon.awscdk.services.dynamodb.Table;
 import software.amazon.awscdk.services.ecs.*;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedFargateService;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskImageOptions;
@@ -21,11 +22,11 @@ import java.util.Map;
 // import software.amazon.awscdk.services.sqs.Queue;
 
 public class Service02Stack extends Stack {
-    public Service02Stack(final Construct scope, final String id, Cluster cluster,  SnsTopic productEventsTopic) {
-        this(scope, id, null, cluster, productEventsTopic);
+    public Service02Stack(final Construct scope, final String id, Cluster cluster,  SnsTopic productEventsTopic, Table productEventDdb) {
+        this(scope, id, null, cluster, productEventsTopic, productEventDdb);
     }
 
-    public Service02Stack(final Construct scope, final String id, final StackProps props, Cluster cluster,  SnsTopic productEventsTopic) {
+    public Service02Stack(final Construct scope, final String id, final StackProps props, Cluster cluster,  SnsTopic productEventsTopic, Table productEventDdb) {
         super(scope, id, props);
 
         Queue productEventsDlq = Queue.Builder.create(this, "ProductEventsDlq")
@@ -59,8 +60,9 @@ public class Service02Stack extends Stack {
                 .cluster(cluster)
                 .cpu(512)
                 .memoryLimitMiB(1024)
-                .desiredCount(2)
+                .desiredCount(1)
                 .listenerPort(9090)
+                .assignPublicIp(true)
                 .taskImageOptions(
                         ApplicationLoadBalancedTaskImageOptions.builder()
                                 .containerName("aws_project02")
@@ -96,6 +98,6 @@ public class Service02Stack extends Stack {
                 .build());
 
         productEventsQueue.grantConsumeMessages(service02.getTaskDefinition().getTaskRole());
-        //productEventDdb.grantReadWriteData(service02.getTaskDefinition().getTaskRole());
+        productEventDdb.grantReadWriteData(service02.getTaskDefinition().getTaskRole());
     }
 }

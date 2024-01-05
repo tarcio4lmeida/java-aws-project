@@ -39,7 +39,7 @@ public class Service01Stack extends Stack {
                         .cluster(cluster)
                         .cpu(512)
                         .memoryLimitMiB(1024)
-                        .desiredCount(2)
+                        .desiredCount(1)
                         .listenerPort(8080)
                         .assignPublicIp(true)
                         .taskImageOptions(
