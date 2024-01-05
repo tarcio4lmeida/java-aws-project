@@ -8,5 +8,5 @@ import lombok.Data;
 public class ProductEvent {
     private long id;
     private  String code;
-    private String userName;
+    private String username;
 }

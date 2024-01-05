@@ -32,7 +32,7 @@ public class ProductSnsPublisher {
             ProductEvent productEvent = ProductEvent.builder()
                     .id(product.getId())
                     .code(product.getCode())
-                    .userName(userName)
+                    .username(userName)
                     .build();
 
             Envelope envelope = Envelope.builder()
