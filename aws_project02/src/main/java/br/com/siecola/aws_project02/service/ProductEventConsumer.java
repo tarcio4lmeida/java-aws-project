@@ -5,13 +5,13 @@ import br.com.siecola.aws_project02.model.Envelope;
 import br.com.siecola.aws_project02.model.ProductEvent;
 import br.com.siecola.aws_project02.model.SnsMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.jms.JMSException;
-import jakarta.jms.TextMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
+import javax.jms.JMSException;
+import javax.jms.TextMessage;
 import java.io.IOException;
 
 @Slf4j

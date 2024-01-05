@@ -45,7 +45,7 @@ public class Service01Stack extends Stack {
                         .taskImageOptions(
                                 ApplicationLoadBalancedTaskImageOptions.builder()
                                         .containerName("aws_project01")
-                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.2.7"))
+                                        .image(ContainerImage.fromRegistry("talima94/curso_aws_project01:1.2.8"))
                                         .containerPort(8080)
                                         .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                                 .logGroup(LogGroup.Builder.create(this, "Service01LogGroup")
@@ -69,8 +69,8 @@ public class Service01Stack extends Stack {
         //Configuração do auto-scaling
         ScalableTaskCount scalableTaskCount = service01.getService()
                 .autoScaleTaskCount(EnableScalingProps.builder()
-                        .minCapacity(2)
-                        .maxCapacity(4)
+                        .minCapacity(1)
+                        .maxCapacity(2)
                         .build());
 
         //Controle do uso de CPU

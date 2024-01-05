@@ -2,20 +2,18 @@ package br.com.siecola.aws_project02.config.local;
 
 import com.amazon.sqs.javamessaging.ProviderConfiguration;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
-import jakarta.jms.Session;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sqs.AmazonSQSClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.support.destination.DynamicDestinationResolver;
-import software.amazon.awssdk.endpoints.Endpoint;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.endpoints.SqsEndpointProvider;
 
-import java.net.URI;
-import java.util.concurrent.CompletableFuture;
+import javax.jms.Session;
 
 @Configuration
 @EnableJms
@@ -29,9 +27,11 @@ public class JmsConfigLocal {
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
         sqsConnectionFactory = new SQSConnectionFactory(
                 new ProviderConfiguration(),
-                SqsClient.builder()
-                        .region(Region.SA_EAST_1)
-                        .endpointProvider(getEndpointProvider())
+                AmazonSQSClient.builder()
+                        .withEndpointConfiguration(
+                                new AwsClientBuilder.EndpointConfiguration(ENDPOINT,
+                                        Regions.SA_EAST_1.getName()))
+                        .withCredentials(new DefaultAWSCredentialsProviderChain())
                         .build());
 
         DefaultJmsListenerContainerFactory factory =
@@ -42,14 +42,6 @@ public class JmsConfigLocal {
         factory.setSessionAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
 
         return factory;
-    }
-
-    public SqsEndpointProvider getEndpointProvider() {
-        return endpointParams ->
-                CompletableFuture.completedFuture(
-                        Endpoint.builder()
-                                .url(URI.create(ENDPOINT))
-                                .build());
     }
 
 }

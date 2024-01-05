@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.1'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'com.palantir.docker' version '0.35.0'
+}
+
+group = 'talima94'
+version = '0.0.5'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'com.amazonaws:aws-java-sdk-sqs:1.12.13'
+	implementation 'org.springframework:spring-jms:5.2.9.RELEASE'
+	implementation 'com.amazonaws:amazon-sqs-java-messaging-lib:1.0.8'
+
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.12.629'
+
+}
+
+tasks.register('unpack', Copy) {
+	dependsOn bootJar
+	from(zipTree(tasks.bootJar.outputs.files.singleFile))
+	into("build/dependency")
+}
+
+//Já está preparado para gerar imagem no formato linux/amd64, inclusive em computadores com processadores ARM, como os novos Macbook.
+//A variável project.name deve ser configurada no arquivo settings.gradle
+docker {
+	name "${project.group}/${project.name}"
+	buildx true
+	platform 'linux/amd64'
+	copySpec.from(tasks.unpack.outputs).into('dependency')
+	buildArgs(['DEPENDENCY' : "dependency"])
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
