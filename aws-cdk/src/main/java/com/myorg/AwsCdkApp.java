@@ -23,11 +23,15 @@ public class AwsCdkApp {
         SnsStack snsStack = new SnsStack(app, "Sns", StackProps.builder()
                 .env(envAmericaSul).build());
 
+        InvoiceAppStack invoiceAppStack = new InvoiceAppStack(app, "InvoiceApp", StackProps.builder()
+                .env(envAmericaSul).build());
+
         Service01Stack service01Stack = new Service01Stack(app, "Service01",  StackProps.builder()
-                .env(envAmericaSul).build(), clusterStack.getCluster(), snsStack.getProductEventsTopic());
+                .env(envAmericaSul).build(), clusterStack.getCluster(), snsStack.getProductEventsTopic(), invoiceAppStack.getBucket(), invoiceAppStack.getS3InvoiceQueue());
         service01Stack.addDependency(clusterStack);
         service01Stack.addDependency(rdsStack);
         service01Stack.addDependency(snsStack);
+        service01Stack.addDependency(invoiceAppStack);
 
         DdbStack ddbStack = new DdbStack(app, "Ddb", StackProps.builder()
                 .env(envAmericaSul).build());

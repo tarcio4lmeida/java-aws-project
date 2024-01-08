@@ -21,17 +21,18 @@ public class SqsCreateSubscribe{
 
     public SqsCreateSubscribe(AmazonSNS snsClient, @Qualifier("productEventsTopic") Topic productEventsTopic) {
 
-        AmazonSQS sqsClient = AmazonSQSClient.builder()
+
+        AmazonSQS amazonSQS = AmazonSQSClient.builder()
                 .withEndpointConfiguration(
                         new AwsClientBuilder.EndpointConfiguration("http://localhost:4566",
-                                Regions.SA_EAST_1.getName()))
+                                Regions.US_EAST_1.getName()))
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .build();
 
-        String productEventsQueueUrl = sqsClient.createQueue(
+        String productEventsQueueUrl = amazonSQS.createQueue(
                 new CreateQueueRequest("product-events")).getQueueUrl();
-
-        Topics.subscribeQueue(snsClient, sqsClient, productEventsTopic.getTopicArn(), productEventsQueueUrl);
+        log.info("Teste antes productEventsQueueUrl: {}", productEventsQueueUrl);
+        Topics.subscribeQueue(snsClient, amazonSQS, productEventsTopic.getTopicArn(), productEventsQueueUrl);
         log.info("productEventsQueueUrl: {}", productEventsQueueUrl);
     }
 

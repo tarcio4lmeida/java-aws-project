@@ -24,13 +24,14 @@ public class SnsLocalConfig {
         this.snsClient = AmazonSNSClient.builder()
                 .withEndpointConfiguration(new AwsClientBuilder
                         .EndpointConfiguration("http://localhost:4566",
-                        Regions.SA_EAST_1.getName()))
+                        Regions.US_EAST_1.getName()))
                 .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .build();
 
         CreateTopicRequest createTopicRequest = new CreateTopicRequest("product-event");
         this.productEventsTopic = this.snsClient.createTopic(createTopicRequest).getTopicArn();
         LOG.info("SNS topic ARN: {}", this.productEventsTopic);
+        LOG.info("PASSOU POR SQS AQUI SHOW");
     }
 
     @Bean
