@@ -1,7 +1,7 @@
 #  Microsserviços em Java com AWS ECS Fargate e AWS CDK
 
 
-Este projeto é composto po dois microservices em Java utilizando o framework Spring Boot. A aplicação funciona como um
+Este projeto é composto por dois microservices em Java utilizando o framework Spring Boot. A aplicação funciona como um
 backend e interage com recursos da Amazon Web Services (AWS). A criação desses recursos na AWS será realizada por meio do
 AWS Cloud Development Kit (CDK).
 
