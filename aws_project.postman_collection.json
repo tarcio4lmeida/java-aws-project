@@ -1,0 +1,640 @@
+{
+	"info": {
+		"_postman_id": "e91fa7f9-4bde-4de7-a211-e7b9ea85439e",
+		"name": "aws_project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4584429"
+	},
+	"item": [
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "All produtcs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C0D77\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update products",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1000\",\r\n    \"code\": \"C0D71\",\r\n    \"price\": 10.0,\r\n    \"id\": 202\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/202",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"202"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dell products",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1000\",\r\n    \"code\": \"C0D71\",\r\n    \"price\": 10.0,\r\n    \"id\": 202\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events by code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/events/C0D77",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events",
+								"C0D77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events by code event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/events/C0D77/PRODUCT_CREATED",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events",
+								"C0D77",
+								"PRODUCT_CREATED"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C0D77\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/invoices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Invoices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C0D77\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/invoices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "aws",
+			"item": [
+				{
+					"name": "Teste de carga",
+					"item": [
+						{
+							"name": "Update product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Teste11-ATT11\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C29\",\r\n    \"price\": 10.0,\r\n    \"id\": 11\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{ALB}}:8080/api/products/12",
+									"protocol": "http",
+									"host": [
+										"{{ALB}}"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All Events",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{ALB2}}:9090/api/events",
+									"protocol": "http",
+									"host": [
+										"{{ALB2}}"
+									],
+									"port": "9090",
+									"path": [
+										"api",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All Events Code Event",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{ALB2}}:9090/api/events/C29/PRODUCT_UPDATE",
+									"protocol": "http",
+									"host": [
+										"{{ALB2}}"
+									],
+									"port": "9090",
+									"path": [
+										"api",
+										"events",
+										"C29",
+										"PRODUCT_UPDATE"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "All products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find By Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products/bycode?code=C0D03",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"bycode"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "C0D03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste26\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C29\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste26-ATT3\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C29\",\r\n    \"price\": 10.0,\r\n    \"id\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products/12",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB}}:8080/actuator/health",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB2}}:9090/api/events",
+							"protocol": "http",
+							"host": [
+								"{{ALB2}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB2}}:9090/api/events/C29",
+							"protocol": "http",
+							"host": [
+								"{{ALB2}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events",
+								"C29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Events Code Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{ALB2}}:9090/api/events",
+							"protocol": "http",
+							"host": [
+								"{{ALB2}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C0D77\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/invoices",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Invoices",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product2\",\r\n    \"model\": \"Model1\",\r\n    \"code\": \"C0D77\",\r\n    \"price\": 10.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{ALB}}:8080/api/invoices",
+							"protocol": "http",
+							"host": [
+								"{{ALB}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
